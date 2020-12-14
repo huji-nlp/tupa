@@ -5,9 +5,9 @@ name: Python package
 
 on:
   push:
-    branches: [ master ]
+    branches: [ mrp ]
   pull_request:
-    branches: [ master ]
+    branches: [ mrp ]
 
 jobs:
   build:
@@ -16,10 +16,8 @@ jobs:
     strategy:
       matrix:
         python-version: ['3.5', '3.6', '3.7', '3.8']
-        test: ['unit', 'toy-ucca', 'sparse-ucca', 'mlp-ucca', 'bilstm-ucca', 'noop-ucca', 'tune-ucca', 'toy-amr', 'sparse-amr', 'noop-amr', 'tune-amr', 'toy-sdp', 'sparse-sdp', 'mlp-sdp', 'bilstm-sdp', 'noop-sdp', 'tune-sdp', 'toy-conllu', 'tune-conllu']
+        framework: ['ucca', 'amr', 'dm', 'eds', 'psd', 'output']
 
-    env:
-      TEST_SUITE: ${{ matrix.test }}
     steps:
     - uses: actions/checkout@v2
     - name: Set up Python ${{ matrix.python-version }}
@@ -39,6 +37,10 @@ jobs:
         flake8 . --count --select=E9,F63,F7,F82 --show-source --statistics
         # exit-zero treats all errors as warnings. The GitHub editor is 127 chars wide
         flake8 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
+    - name: Test with pytest
+      run: |
+        pytest -v tests
     - name: Test
       run: |
-        ci/test.sh
+        python -m tupa -t test_files/${{ matrix.framwork }}.mrp -d test_files/${{ matrix.framwork }}.mrp -m ${{ matrix.framwork }} --conllu test_files/udpipe.mrp --alignment test_files/isi.mrp -I2 --max-edge-labels=10 --max-node-labels=10 --max-node-properties=10 --max-words=10 --max-lemmas=10 --lstm-layer-dim=10 --timeout=1 -v
+        python -m tupa test_files/input.mrp -m ${{ matrix.framwork }} --conllu test_files/udpipe.mrp --alignment test_files/isi.mrp --timeout=1 -v
