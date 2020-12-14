@@ -17,17 +17,8 @@ os.chdir(os.path.dirname(os.path.abspath(this_file)))
 with open("requirements.txt") as f:
     install_requires = f.read().splitlines()
 
-try:
-    # noinspection PyPackageRequirements
-    import pypandoc
-    try:
-        pypandoc.convert_file("README.md", "rst", outputfile="README.rst")
-    except (IOError, ImportError, RuntimeError):
-        pass
-    long_description = pypandoc.convert_file("README.md", "rst")
-except (IOError, ImportError, RuntimeError):
-    long_description = ""
-
+with open(os.path.join(SCRIPT_DIR, 'README.md'), encoding='utf-8') as f:
+    long_description = f.read()
 
 class install(_install):
     # noinspection PyBroadException
@@ -57,7 +48,6 @@ setup(name="TUPA",
       author="Daniel Hershcovich",
       author_email="daniel.hershcovich@gmail.com",
       url="https://github.com/huji-nlp/tupa",
-      setup_requires=["pypandoc"],
       install_requires=install_requires,
       extras_require={"server": open(os.path.join("server", "requirements.txt")).read().splitlines(),
                       "viz": ["scipy", "pillow", "matplotlib"],

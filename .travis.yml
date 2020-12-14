@@ -3,10 +3,6 @@ sudo: false
 group: edge
 language: python
 python: 3.6
-addons:
-  apt:
-    packages:
-    - pandoc
 install:
   - pip uninstall -y numpy
   - pip install .
