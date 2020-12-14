@@ -17,7 +17,7 @@ os.chdir(os.path.dirname(os.path.abspath(this_file)))
 with open("requirements.txt") as f:
     install_requires = f.read().splitlines()
 
-with open(os.path.join(SCRIPT_DIR, 'README.md'), encoding='utf-8') as f:
+with open('README.md', encoding='utf-8') as f:
     long_description = f.read()
 
 class install(_install):
