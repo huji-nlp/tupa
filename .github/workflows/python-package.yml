@@ -15,7 +15,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        python-version: ['3.5', '3.6', '3.7', '3.8']
+        python-version: ['3.6', '3.7', '3.8']
         test: ['unit', 'toy-ucca', 'sparse-ucca', 'mlp-ucca', 'bilstm-ucca', 'noop-ucca', 'tune-ucca', 'toy-amr', 'sparse-amr', 'noop-amr', 'tune-amr', 'toy-sdp', 'sparse-sdp', 'mlp-sdp', 'bilstm-sdp', 'noop-sdp', 'tune-sdp', 'toy-conllu', 'tune-conllu']
 
     env:
