@@ -128,11 +128,11 @@ class UDError(Exception):
 
 # Conversion methods handling `str` <-> `unicode` conversions in Python2
 def _decode(text):
-    return text if sys.version_info[0] >= 3 or not isinstance(text, str) else text.decode("utf-8")
+    return text
 
 
 def _encode(text):
-    return text if sys.version_info[0] >= 3 or not isinstance(text, unicode) else text.encode("utf-8")
+    return text
 
 
 # Load given CoNLL-U file into internal representation
