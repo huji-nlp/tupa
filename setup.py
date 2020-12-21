@@ -35,6 +35,7 @@ setup(name="TUPA",
       version=VERSION,
       description="Transition-based UCCA Parser",
       long_description=long_description,
+      long_description_content_type='text/markdown',
       classifiers=[
         "Development Status :: 4 - Beta",
         "Environment :: Console",
